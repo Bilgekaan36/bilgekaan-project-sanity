@@ -1,0 +1,21 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { useRouter } from 'next/router'
+import { fetchArticleById } from './articleQueries'
+
+export let metadata
+
+export default async function Article({ params, props }) {
+  
+   const article = await fetchArticleById(params); // Use the fetchArticleById function
+
+metadata = {
+title: article.title,
+description: article.description,
+}
+
+return (
+<ArticleLayout article={article} {...props}>
+  <MDXRemote source={article.content} />
+</ArticleLayout>
+) }
