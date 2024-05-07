@@ -1,5 +1,4 @@
 import { type Metadata } from 'next'
-import Image from 'next/image'
 
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
@@ -9,9 +8,8 @@ import logoHelioStream from '@/images/logos/helio-stream.svg'
 import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
 import logoPlanetaria from '@/images/logos/planetaria.svg'
 import { GitHubIcon } from '@/components/SocialIcons'
-import { getProjectsPageData } from '@/data/loaders'
 import DynamicImage from '@/components/DynamicImage'
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
 function LinkIcon(props: React.ComponentPropsWithoutRef<'svg'>) {

@@ -1,8 +1,9 @@
 import React from 'react'
+import Link from 'next/link'
+
 import { ContainerScroll } from '@/components/ui/container-scroll-animation'
 import { Video } from '@/components/Video'
-import Link from 'next/link'
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
 const SHOWCASES_QUERY = `*[_type == "showcase"]{

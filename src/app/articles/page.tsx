@@ -1,11 +1,9 @@
 import { type Metadata } from 'next'
+import Link from 'next/link'
 
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
-import { formatDate } from '@/lib/formatDate'
-import Link from 'next/link'
-import { getArticlesPageData } from '@/data/loaders'
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
 export interface Article {

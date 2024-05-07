@@ -3,6 +3,7 @@ import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import imageUrlBuilder from '@sanity/image-url'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import { QueryParams } from 'next-sanity'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -57,4 +58,22 @@ export function flattenAttributes(data: any): any {
   }
 
   return flattened
+}
+
+export async function sanityFetch<QueryResponse>({
+  query,
+  params = {},
+  tags,
+}: {
+  query: string
+  params?: QueryParams
+  tags?: string[]
+}) {
+  return client.fetch<QueryResponse>(query, params, {
+    //@ts-ignore
+    next: {
+      revalidate: process.env.NODE_ENV === 'development' ? 30 : 3600,
+      tags,
+    },
+  })
 }

@@ -1,8 +1,9 @@
+import '@/styles/tailwind.css'
+
 import { type Metadata } from 'next'
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
-import '@/styles/tailwind.css'
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
 export let metadata: Metadata

@@ -1,4 +1,4 @@
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import type { SanityDocument } from '@sanity/client'
 
 export async function fetchArticleById(params: any) {

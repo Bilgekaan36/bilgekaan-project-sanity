@@ -7,7 +7,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Container } from '@/components/Container'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
 
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
 function SocialLink({

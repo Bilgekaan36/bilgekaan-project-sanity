@@ -1,9 +1,9 @@
+import { Metadata } from 'next'
+
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import { SimpleLayout } from '@/components/SimpleLayout'
-import { getUsesPageData } from '@/data/loaders'
-import { sanityFetch } from '@/sanity/sanity.client'
-import { Metadata } from 'next'
+import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
 function ToolsSection({
