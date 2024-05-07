@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import clsx from 'clsx'
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
 const PHOTOS_QUERY = `*[_type == "photosSection"]{

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ImageProps } from 'next/image'
 import { SanityDocument } from 'next-sanity'
-import { sanityFetch } from '@/sanity/sanity.client'
+import { sanityFetch } from '@/lib/utils'
 import { Container } from '@/components/Container'
 import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
