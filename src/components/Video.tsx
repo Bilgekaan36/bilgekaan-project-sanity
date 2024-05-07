@@ -1,5 +1,3 @@
-import { getStrapiMedia } from '@/lib/utils'
-
 export function Video({ url }: { url: string }) {
   return (
     <video
@@ -10,7 +8,7 @@ export function Video({ url }: { url: string }) {
       loop
       muted
     >
-      <source src={getStrapiMedia(url)?.toString()} type="video/mp4" />
+      <source src={url} type="video/mp4" />
       {/* <track src={captions} kind="subtitles" srcLang="en" label="English" /> */}
       Your browser does not support the video tag.
     </video>

@@ -4,27 +4,6 @@ import { urlFor } from '@/lib/utils'
 import { sanityFetch } from '@/sanity/sanity.client'
 import { SanityDocument } from 'next-sanity'
 
-export interface Header {
-  headerLinks: {
-    url: string
-    text: string
-    isExternal: boolean
-  }[]
-  avatar: {
-    url: string
-    originalFilename: string
-  }
-}
-
-export interface Footer {
-  footerLink: {
-    url: string
-    text: string
-    isExternal: boolean
-  }[]
-  footerText: string
-}
-
 const HEADER_QUERY = `*[_type == "header"]{
   headerLinks,
   avatar{
@@ -35,15 +14,25 @@ const HEADER_QUERY = `*[_type == "header"]{
   }
 }`
 
+const FOOTER_QUERY = `*[_type == "footer"]{
+  footerLinks,
+  footerText
+  }`
+
 export async function Layout({ children }: { children: React.ReactNode }) {
-  const header = (
+  const headerData = (
     await sanityFetch<SanityDocument[]>({ query: HEADER_QUERY })
   )[0]
 
-  // const footer: Readonly<Footer> = await getFooterData()
-  const url = urlFor(header.avatar)?.url()
+  const footerData = (
+    await sanityFetch<SanityDocument[]>({
+      query: FOOTER_QUERY,
+    })
+  )[0]
+
+  const url = urlFor(headerData.avatar)?.url()
   if (url) {
-    header.avatar.url = url
+    headerData.avatar.url = url
   }
 
   return (
@@ -54,10 +43,9 @@ export async function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
       <div className="relative flex w-full flex-col">
-        {/* @ts-ignore */}
-        <Header data={header} />
+        <Header data={headerData} />
         <main className="flex-auto">{children}</main>
-        {/* <Footer data={footer} /> */}
+        <Footer data={footerData} />
       </div>
     </>
   )

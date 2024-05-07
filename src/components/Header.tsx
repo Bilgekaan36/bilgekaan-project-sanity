@@ -9,7 +9,7 @@ import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
-import type { Header } from './Layout'
+import { SanityDocument } from 'next-sanity'
 
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -151,11 +151,6 @@ function MobileNavigation({ headerLinks, ...props }: MobileNavigationProps) {
                     {link.text}
                   </MobileNavItem>
                 ))}
-                {/* <MobileNavItem href="/about">About</MobileNavItem>
-                <MobileNavItem href="/articles">Articles</MobileNavItem>
-                <MobileNavItem href="/projects">Projects</MobileNavItem>
-                <MobileNavItem href="/showcases">Showcases</MobileNavItem>
-                <MobileNavItem href="/uses">Uses</MobileNavItem> */}
               </ul>
             </nav>
           </Popover.Panel>
@@ -274,8 +269,8 @@ function Avatar({
       {...props}
     >
       <Image
-        src={avatar.url}
-        alt={avatar.originalFilename}
+        src={avatar.asset.url}
+        alt={avatar.asset.originalFilename}
         sizes={large ? '4rem' : '2.25rem'}
         className={clsx(
           'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800',
@@ -289,7 +284,7 @@ function Avatar({
   )
 }
 
-export function Header({ data }: { data: Header }) {
+export function Header({ data }: { data: SanityDocument }) {
   let isHomePage = usePathname() === '/'
   const { headerLinks, avatar } = data
 

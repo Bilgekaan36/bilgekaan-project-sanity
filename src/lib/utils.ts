@@ -8,6 +8,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function getStrapiURL() {
+  return process.env.NEXT_PUBLIC_STRAPI_URL ?? 'http://127.0.0.1:1337'
+}
+
 const { projectId, dataset } = client.config()
 
 export const urlFor = (source: SanityImageSource) =>

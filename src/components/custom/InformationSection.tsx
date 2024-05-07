@@ -1,16 +1,14 @@
+import Link from 'next/link'
+import { ImageProps } from 'next/image'
+import { SanityDocument } from 'next-sanity'
+import { sanityFetch } from '@/sanity/sanity.client'
 import { Container } from '@/components/Container'
 import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
-import { formatDate } from '@/lib/formatDate'
 import logoWorkDigital from '@/images/logos/workdigital.svg'
 import logoInitGroup from '@/images/logos/initgroup.svg'
 import logoPlanetaria from '@/images/logos/planetaria.svg'
-import { ImageProps } from 'next/image'
-// import { ArticleWithId } from '@/app/articles/page'
-import Link from 'next/link'
 import DynamicImage from '../DynamicImage'
-import { SanityDocument } from 'next-sanity'
-import { sanityFetch } from '@/sanity/sanity.client'
 
 interface NewsletterProps {
   id: number
@@ -30,19 +28,6 @@ interface ResumeProps {
     dateTime: string
   }
   start: string
-}
-
-interface InformationSectionProps {
-  data: {
-    id: number
-    __component: string
-    title: string
-    description: string
-    newsletter: NewsletterProps
-    resumes: ResumeProps[]
-    downloadButtonText: string
-    resumeTitle: string
-  }
 }
 
 function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -110,7 +95,7 @@ function Article({ article }: { article: any }) {
       <Link href="/articles/[id]" as={`/articles/${article._id}`}>
         <Card.Title>{article.title}</Card.Title>
         <Card.Eyebrow as="time" dateTime={article.date} decorate>
-          {formatDate(article.date)}
+          {article.date.split('T')[0]}
         </Card.Eyebrow>
         <Card.Description>{article.description}</Card.Description>
         <Card.Cta>Read article</Card.Cta>
@@ -129,7 +114,6 @@ interface Role {
 }
 
 function Role({ role }: { role: Role }) {
-
   let startLabel =
     typeof role.start === 'object' ? role.start.label : role.start
   let startDate =
@@ -183,10 +167,7 @@ function Newsletter({
   buttonText,
 }: Readonly<NewsletterProps>) {
   return (
-    <form
-      action="/thank-you"
-      className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
-    >
+    <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <MailIcon className="h-6 w-6 flex-none" />
         <span className="ml-3">{title}</span>
@@ -195,18 +176,15 @@ function Newsletter({
         {description}
       </p>
       <div className="mt-6 flex">
-        <input
-          type="email"
-          placeholder="Email address"
-          aria-label="Email address"
-          required
-          className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10"
-        />
-        <Button type="submit" className="ml-4 flex-none">
+        <Button
+          href={'https://calendly.com/bilgekaan-yilmaz'}
+          target="_blank"
+          className="w-full flex-none"
+        >
           {buttonText}
         </Button>
       </div>
-    </form>
+    </div>
   )
 }
 
@@ -248,8 +226,10 @@ function Resume({
 const ARTICLES_QUERY = `*[_type == "article"]`
 
 export async function InformationSection({ data }: { data: SanityDocument }) {
-  const articles = (await sanityFetch<SanityDocument[]>({ query: ARTICLES_QUERY })).slice(0, 4)
-  
+  const articles = (
+    await sanityFetch<SanityDocument[]>({ query: ARTICLES_QUERY })
+  ).slice(0, 4)
+
   const { newsletter, resumes, downloadButtonText, resumeTitle } = data
   return (
     <Container className="mt-24 md:mt-28">
