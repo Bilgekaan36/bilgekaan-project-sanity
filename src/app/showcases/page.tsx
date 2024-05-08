@@ -28,7 +28,7 @@ export default async function Showcases() {
           titleComponent={
             showcase.title && (
               <>
-                <h1 className="text-4xl font-semibold text-black dark:text-white">
+                <h1 className="text-2xl font-semibold text-black sm:text-4xl dark:text-white">
                   {showcase?.title}
                   <br />
                   <span className="mt-1 text-4xl font-bold leading-none md:text-[6rem]">

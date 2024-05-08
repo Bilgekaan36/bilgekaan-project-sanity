@@ -1,8 +1,9 @@
+import { SanityDocument } from 'next-sanity'
+
 import HeroSection from '@/components/custom/HeroSection'
 import { InformationSection } from '@/components/custom/InformationSection'
 import { PhotosSection } from '@/components/custom/PhotosSection'
 import { sanityFetch } from '@/lib/utils'
-import { SanityDocument } from 'next-sanity'
 
 const HEROSECTION_QUERY = `*[_type == "heroSection"]{
   _type,

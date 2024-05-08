@@ -69,7 +69,6 @@ export default async function Uses() {
     title: seoInformation.seoTitle,
     description: seoInformation.seoDescription,
   }
-  console.log(tools)
   return (
     <SimpleLayout title={title} intro={description}>
       <div className="space-y-20">
