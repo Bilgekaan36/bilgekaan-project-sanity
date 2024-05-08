@@ -45,7 +45,7 @@ export default async function Showcases() {
               alt={showcase.url}
               height={720}
               width={1400}
-              className="mx-auto h-full rounded-2xl object-cover object-left-top"
+              className="object-fit mx-auto h-full rounded-2xl object-left-top"
               draggable={false}
             />
             {/* @ts-ignore */}
