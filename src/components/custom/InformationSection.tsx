@@ -92,7 +92,7 @@ function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function Article({ article }: { article: any }) {
   return (
     <Card as="article">
-      <Link href="/articles/[id]" as={`/articles/${article._id}`}>
+      <Link href="/blogs/[id]" as={`/blogs/${article._id}`}>
         <Card.Title>{article.title}</Card.Title>
         <Card.Eyebrow as="time" dateTime={article.date} decorate>
           {article.date.split('T')[0]}

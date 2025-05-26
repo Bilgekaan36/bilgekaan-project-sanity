@@ -6,7 +6,7 @@ import { SimpleLayout } from '@/components/SimpleLayout'
 import { sanityFetch } from '@/lib/utils'
 import { SanityDocument } from 'next-sanity'
 
-export interface Article {
+export interface Blog {
   title: string
   description: string
   content: string
@@ -14,14 +14,14 @@ export interface Article {
   date: string
 }
 
-export interface ArticleWithId extends Article {
+export interface BlogWithId extends Blog {
   id: string
 }
 
-const ARTICLESPAGE_QUERY = `*[_type == "articlesPage"]{
+const BLOGSPAGE_QUERY = `*[_type == "blogsPage"]{
   title,
   description,
-  "articles": articles[]->{
+  "blogs": blogs[]->{
     _id,
     title,
     description,
@@ -33,30 +33,30 @@ const ARTICLESPAGE_QUERY = `*[_type == "articlesPage"]{
   }
 }`
 
-async function Article({ article }: { article: any }) {
+async function BlogCard({ blog }: { blog: any }) {
   return (
     <article className="md:grid md:grid-cols-4 md:items-baseline">
       <Card className="md:col-span-3">
-        <Link href="/articles/[id]" as={`/articles/${article._id}`}>
-          <Card.Title>{article.title}</Card.Title>
+        <Link href={`/blogs/${blog._id}`}>
+          <Card.Title>{blog.title}</Card.Title>
           <Card.Eyebrow
             as="time"
-            dateTime={article.date}
+            dateTime={blog.date}
             className="md:hidden"
             decorate
           >
-            {article.date.split('T')[0]}
+            {blog.date.split('T')[0]}
           </Card.Eyebrow>
-          <Card.Description>{article.description}</Card.Description>
-          <Card.Cta>Read article</Card.Cta>
+          <Card.Description>{blog.description}</Card.Description>
+          <Card.Cta>Read blog</Card.Cta>
         </Link>
       </Card>
       <Card.Eyebrow
         as="time"
-        dateTime={article.date}
+        dateTime={blog.date}
         className="mt-1 hidden md:block"
       >
-        {article.date.split('T')[0]}
+        {blog.date.split('T')[0]}
       </Card.Eyebrow>
     </article>
   )
@@ -64,25 +64,25 @@ async function Article({ article }: { article: any }) {
 
 export let metadata: Metadata
 
-export default async function ArticlesIndex() {
-  const articlesPageData = (
+export default async function BlogsIndex() {
+  const blogsPageData = (
     await sanityFetch<SanityDocument[]>({
-      query: ARTICLESPAGE_QUERY,
+      query: BLOGSPAGE_QUERY,
     })
   )[0]
-  const { title, description, articles, seoInformation } = articlesPageData
+
+  const { title, description, blogs, seoInformation } = blogsPageData
 
   metadata = {
-    title: seoInformation.seoTitle,
-    description: seoInformation.seoDescription,
+    title: seoInformation?.seoTitle || title,
+    description: seoInformation?.seoDescription || description,
   }
+
   return (
     <SimpleLayout title={title} intro={description}>
       <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
         <div className="flex max-w-3xl flex-col space-y-16">
-          {articles.map((article: any) => (
-            <Article key={article.slug} article={article} />
-          ))}
+          {blogs?.map((blog: any) => <BlogCard key={blog._id} blog={blog} />)}
         </div>
       </div>
     </SimpleLayout>

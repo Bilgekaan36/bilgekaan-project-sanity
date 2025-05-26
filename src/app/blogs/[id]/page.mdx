@@ -1,0 +1,21 @@
+import { BlogLayout } from '@/components/BlogLayout'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { fetchBlogById } from './blogQueries' // Passe den Pfad entsprechend an
+
+export let metadata
+
+export default async function Blog({ params, props }) {
+  
+  const blog = await fetchBlogById({ id: params.id }); // Korrigierte Parameter
+
+  metadata = {
+    title: blog.title,
+    description: blog.description,
+  }
+
+  return (
+    <BlogLayout blog={blog} {...props}>
+      <MDXRemote source={blog.content} />
+    </BlogLayout>
+  )
+}

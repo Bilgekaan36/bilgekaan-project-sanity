@@ -45,7 +45,7 @@ export function HeroSection({ data }: {data: SanityDocument}) {
           ))}
         </div>
       </div>
-      <GlobeComponent />
+      {/* <GlobeComponent /> */}
     </Container>
   )
 }
